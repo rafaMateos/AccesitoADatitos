@@ -9,31 +9,33 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
  * @author rmateos
  */
+
+
 public class ConecBD {
     
      public Connection iniciarConex(String nombreBD){
         
         Connection conex = null;
         String url = " ";
-        url="jdbc:sqlserver://localhost;databaseName="+nombreBD+";user=pepito;password=qq;";
+        url="jdbc:sqlserver://localhost;databaseName="+nombreBD+";user=rmateos;password=123;";
+         System.out.println("Conectado");
         
         try{
         
             conex = DriverManager.getConnection(url);
             
         }catch(SQLException e){
-        
-            e.printStackTrace();
+          System.out.println("Conectado");
+           e.printStackTrace();
         }
         
         return conex;
 
     } 
      
-      public static void cerrar (ResultSet rs) {
+      public void cerrar (ResultSet rs) {
           
         try{
             
@@ -44,7 +46,7 @@ public class ConecBD {
             e.printStackTrace();
         }
     }
-    public static void cerrar ( Statement st ) {
+    public void cerrar ( Statement st ) {
         try{
             
             st.close();
@@ -54,7 +56,7 @@ public class ConecBD {
             e.printStackTrace();
         }
     }
-    public static void cerrar (Connection con) {
+    public void cerrar (Connection con) {
         try{
             
             con.close();
