@@ -14,11 +14,13 @@ import java.sql.Statement;
  */
 public class ConecBD {
     
-     public Connection iniciarConex(String nombreBD){
+    
+    
+     public Connection iniciarConex(){
         
         Connection conex = null;
         String url = " ";
-        url="jdbc:sqlserver://localhost;databaseName="+nombreBD+";user=pepito;password=qq;";
+        url="jdbc:sqlserver://;database=AlmacenesLeo;integratedSecurity=true;";
         
         try{
         
@@ -33,7 +35,7 @@ public class ConecBD {
 
     } 
      
-      public static void cerrar (ResultSet rs) {
+      public void cerrar (ResultSet rs) {
           
         try{
             
@@ -44,7 +46,7 @@ public class ConecBD {
             e.printStackTrace();
         }
     }
-    public static void cerrar ( Statement st ) {
+    public void cerrar ( Statement st ) {
         try{
             
             st.close();
@@ -54,7 +56,7 @@ public class ConecBD {
             e.printStackTrace();
         }
     }
-    public static void cerrar (Connection con) {
+    public void cerrar (Connection con) {
         try{
             
             con.close();
