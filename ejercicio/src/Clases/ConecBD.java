@@ -13,8 +13,7 @@ public class ConecBD {
 
         Connection conex = null;
         String url = " ";
-        url="jdbc:sqlserver://localhost;databaseName="+nombreBaseDatos+";user=rmateos;password=123;";
-
+        url="jdbc:sqlserver://localhost;databaseName="+nombreBaseDatos+";user=pepito;password=qq;";
         try{
 
             conex = DriverManager.getConnection(url);
