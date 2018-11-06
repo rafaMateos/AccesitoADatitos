@@ -15,12 +15,18 @@ import java.sql.Statement;
 
 public class ConecBD {
     
-     public Connection iniciarConex(String nombreBD){
+    
+    
+     public Connection iniciarConex(){
         
         Connection conex = null;
         String url = " ";
+<<<<<<< HEAD:ViendoTema/src/Clases/ConecBD.java
         url="jdbc:sqlserver://localhost;databaseName="+nombreBD+";user=rmateos;password=123;";
          System.out.println("Conectado");
+=======
+        url="jdbc:sqlserver://;database=AlmacenesLeo;integratedSecurity=true;";
+>>>>>>> master:EjercicioBD/src/Clases/ConecBD.java
         
         try{
         
