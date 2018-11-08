@@ -10,7 +10,15 @@ public class Main {
         ConecBD metodos = new ConecBD();
         //Debes de hacer un metodo que lo abra todo.
         Connection connexionBaseDatos = metodos.iniciarConex("AlmacenesLeo");
-        Statement sentencia = connexionBaseDatos.createStatement();
+        Statement sentencia = null;
+        try{
+
+             sentencia = connexionBaseDatos.createStatement();
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
         int opcion;
 
         do {
@@ -40,7 +48,7 @@ public class Main {
 
                         while (res.next()){
 
-                            System.out.println("ID: " + res.getInt(1));
+                            System.out.println("ID: " + res.getInt(1) + "Numero de contenedores: " + res.getString(2));
                         }
 
                         metodos.cerrar(res);
