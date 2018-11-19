@@ -200,6 +200,29 @@ public class manejadoraEnvios {
 
     }
 
+
+    public int comprobarAlmacenPreferido(Statement sentencia,int id){
+
+        int ret = 0;
+
+        try {
+
+            //Utilizar como ejemplos.
+            String miOrden = "exec ComprobarAlmacenPreferido " + id;
+            System.out.println(miOrden);
+            ret = sentencia.executeUpdate(miOrden);
+            System.out.println(ret);
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+        return ret;
+
+    }
+
 }
 
 

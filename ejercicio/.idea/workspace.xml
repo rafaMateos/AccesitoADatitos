@@ -73,21 +73,22 @@
     <session id="-246573941">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.59" value="1" />
           <entry key="project.open.time.66" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2387" />
+          <entry key="java" value="2669" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2387" />
+          <entry key="JAVA" value="2669" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -116,24 +117,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Maibn/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="17" selection-end-column="30" />
+            <state relative-caret-position="200">
+              <caret line="42" column="42" lean-forward="true" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GestoraEnvios/manejadoraEnvios.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="321">
+              <caret line="212" column="41" selection-start-line="212" selection-start-column="28" selection-end-line="212" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#MostrarEnvios#0;class#manejadoraEnvios#0" />
                 <element signature="method#MostrarPedididosSinAsignar#0;class#manejadoraEnvios#0" />
+                <element signature="method#MostrarPedidoSinAsignar#0;class#manejadoraEnvios#0" />
+                <element signature="method#MostrarAlmacenesConCapacidadLibre#0;class#manejadoraEnvios#0" />
                 <element signature="method#ComprobarAlmacen#0;class#manejadoraEnvios#0" />
               </folding>
             </state>
@@ -179,10 +182,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1386" />
-    <option name="height" value="788" />
+    <option name="x" value="2668" />
+    <option name="y" value="-14" />
+    <option name="width" value="1387" />
+    <option name="height" value="789" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -190,7 +193,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -208,6 +210,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -271,14 +274,16 @@
       <workItem from="1542529068987" duration="4118000" />
       <workItem from="1542564790611" duration="3021000" />
       <workItem from="1542612155553" duration="3711000" />
+      <workItem from="1542636677693" duration="3735000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17129000" />
+    <option name="totallyTimeSpent" value="20864000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="1" />
@@ -286,11 +291,11 @@
       <window_info id="UI Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.25113463" />
+      <window_info content_ui="combo" id="Project" order="6" weight="0.2543624" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" x="0" y="0" width="1366" height="728" id="Run" order="2" type="FLOATING" weight="0.37704918" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39885223" />
+      <window_info anchor="bottom" x="2043" y="32" width="1366" height="728" id="Run" order="2" type="FLOATING" weight="0.37704918" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39858156" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -343,23 +348,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maibn/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="42" column="42" lean-forward="true" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GestoraEnvios/manejadoraEnvios.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="321">
+          <caret line="212" column="41" selection-start-line="212" selection-start-column="28" selection-end-line="212" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#MostrarEnvios#0;class#manejadoraEnvios#0" />
             <element signature="method#MostrarPedididosSinAsignar#0;class#manejadoraEnvios#0" />
+            <element signature="method#MostrarPedidoSinAsignar#0;class#manejadoraEnvios#0" />
+            <element signature="method#MostrarAlmacenesConCapacidadLibre#0;class#manejadoraEnvios#0" />
             <element signature="method#ComprobarAlmacen#0;class#manejadoraEnvios#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maibn/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="17" selection-end-column="30" />
         </state>
       </provider>
     </entry>

@@ -40,6 +40,7 @@ public class Main {
 
                 case 1:
                     System.out.println("En construccion");
+                    gestoraEnvios.comprobarAlmacenPreferido(sentencia,5);
                     break;
 
                 case 2:
@@ -51,10 +52,9 @@ public class Main {
                     System.out.println("Este es el pedido que has elegido");
                     gestoraEnvios.MostrarPedidoSinAsignar(pedido,sentencia);
                     System.out.println("");
-                    gestoraEnvios.MostrarAlmacenesConCapacidadLibre(sentencia);
-                    System.out.println("¿A cual se los quieres asignar?");
-                    almacen = teclado.nextInt();
-                    gestoraEnvios.MostrarAlmacenConCapacidadLibre(sentencia,almacen);
+                    System.out.println("Voy a asignarlo...Podre al almacen preferido?");
+                    //gestoraEnvios.comprobarAlmacenPreferido(sentencia,5,1);
+
                     //gestoraEnvios.ComprobarAlmacen(sentencia,almacen,capacidad);
 
                     break;

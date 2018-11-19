@@ -145,6 +145,38 @@ AS
 GO
 
 
+GO
+create PROCEDURE ComprobarAlmacenPreferido (@idEnvio int)
+AS
+	
+declare @envioContenedores int
+
+	set @envioContenedores = (select Envios.NumeroContenedores from Envios where ID = @idEnvio)
+
+	declare @capacidad int
+	declare @ret int
+	
+	set @ret = 0
+
+	set @capacidad = (SELECT A.Capacidad - Sum(E.NumeroContenedores) AS disponible From Almacenes AS A 
+						Inner Join Asignaciones As Ag ON A.ID = Ag.IDAlmacen
+						Inner Join Envios AS E ON Ag.IDEnvio = E.ID
+						where A.ID = e.AlmacenPreferido and E.ID = @idEnvio
+						Group By A.ID, A.Capacidad)
+
+	if ((@capacidad - @envioContenedores ) >= 0)
+		set @ret = 1
+	else
+		set @ret = 0
+
+	return @ret
+
+
+GO
+
+DECLARE @return_status int  
+EXEC @return_status = ComprobarAlmacenPreferido 2; 
+print @return_status
 
 
 /*
@@ -230,4 +262,4 @@ SELECT A.ID, A.Capacidad, Sum(E.NumeroContenedores) AS Ocupado, A.Capacidad - Su
 	Group By A.ID, A.Capacidad
 
 
-	select * from Almacenes
+	select * from Envios
