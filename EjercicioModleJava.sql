@@ -27,10 +27,7 @@ RETURN
 	SELECT ID,NumeroContenedores,FechaCreacion,FechaAsignacion 
 		FROM Envios
 		WHERE FechaAsignacion IS NULL
-
 )
-
-
 GO
 
 /*
@@ -146,7 +143,6 @@ AS
 
 
 GO
-
 
 
 

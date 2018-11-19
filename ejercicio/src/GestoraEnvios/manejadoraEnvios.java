@@ -81,15 +81,15 @@ public class manejadoraEnvios {
     * Entradas:Statement sentencia, id del pedido
     * Salidas: no hay
     * */
-    public int MostrarPedidoSinAsignar(int id,Statement sentencia){
+    public void MostrarPedidoSinAsignar(int id,Statement sentencia){
 
-        int capacidad = 0;
+
         try {
 
             //Utilizar como ejemplos.
             String miOrden = "SELECT * FROM BuscarEnvioSinAsignar(" + id + ")";
             ResultSet res = sentencia.executeQuery(miOrden);
-            capacidad = Integer.parseInt(res.getString(2));
+
 
             while (res.next()){
 
@@ -103,7 +103,6 @@ public class manejadoraEnvios {
 
         }
 
-        return  capacidad;
     }
 
 

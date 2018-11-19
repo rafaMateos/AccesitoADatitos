@@ -49,13 +49,13 @@ public class Main {
                     System.out.println("Dime el pedido que quieres asignar \n");
                     pedido = teclado.nextInt();
                     System.out.println("Este es el pedido que has elegido");
-                    capacidad = gestoraEnvios.MostrarPedidoSinAsignar(pedido,sentencia);
-                    System.out.println("Capacidaaaaaaa" + capacidad);
+                    gestoraEnvios.MostrarPedidoSinAsignar(pedido,sentencia);
+                    System.out.println("");
                     gestoraEnvios.MostrarAlmacenesConCapacidadLibre(sentencia);
                     System.out.println("¿A cual se los quieres asignar?");
                     almacen = teclado.nextInt();
                     gestoraEnvios.MostrarAlmacenConCapacidadLibre(sentencia,almacen);
-                    System.out.println(gestoraEnvios.ComprobarAlmacen(sentencia,almacen,capacidad));
+                    //gestoraEnvios.ComprobarAlmacen(sentencia,almacen,capacidad);
 
                     break;
 
