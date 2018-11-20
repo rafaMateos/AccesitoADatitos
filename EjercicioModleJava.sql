@@ -178,7 +178,6 @@ DECLARE @return_status int
 EXEC @return_status = ComprobarAlmacenPreferido 2; 
 print @return_status
 
-
 /*
 INSERTS DE DATOS
 */
@@ -248,11 +247,12 @@ INSERT INTO Envios (ID,NumeroContenedores,FechaCreacion,FechaAsignacion,AlmacenP
 		,(39,74,'20180602',NULL,20)
 GO
 
+
+
 INSERT INTO Asignaciones (IDEnvio,IDAlmacen)
      VALUES (0,1),(1,1),(2,1),(3,1),(4,10),(16,2),(17,2)
 	 ,(20,10),(24,10),(28,20),(31,30),(33,30),(36,20),(38,30)
 GO
-
 
 -- Comprobar la capacidad libre de cada almac�n
 
@@ -260,6 +260,5 @@ SELECT A.ID, A.Capacidad, Sum(E.NumeroContenedores) AS Ocupado, A.Capacidad - Su
 	Inner Join Asignaciones As Ag ON A.ID = Ag.IDAlmacen
 	Inner Join Envios AS E ON Ag.IDEnvio = E.ID
 	Group By A.ID, A.Capacidad
-
 
 	select * from Envios
