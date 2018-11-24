@@ -9,21 +9,26 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Declaracion de variables y objetos
         int opcion;
         int pedido;
         int almacen;
+        int almacenMasCercano;
         int capacidad;
         int asignar;
+        int asignacion;
         Scanner teclado = new Scanner(System.in);
         Menus menus = new Menus();
         manejadoraEnvios gestoraEnvios = new manejadoraEnvios();
-        //abrimos conexcion con la base de datos
+
+
+        //Abrimos conexcion con la base de datos
         ConecBD metodos = new ConecBD();
-        //Debes de hacer un metodo que lo abra todo.
         Connection connexionBaseDatos = metodos.iniciarConex("AlmacenesLeo");
         Statement sentencia = null;
 
 
+        //Si les pasas la conexcionesto te lo ahorras nene y ya despues pues crear el statement que te haga falta
         try{
 
              sentencia = connexionBaseDatos.createStatement();
@@ -32,15 +37,16 @@ public class Main {
             e.printStackTrace();
 
         }
-
         do {
             opcion = menus.MenuPrincipal();
 
             switch (opcion) {
 
                 case 1:
-                    System.out.println("En construccion");
-                    gestoraEnvios.comprobarAlmacenPreferido(sentencia,5);
+                    //System.out.println("En construccion");
+                    System.out.println(gestoraEnvios.ComprobarAlmCercano(connexionBaseDatos,11,10));
+                    System.out.println(gestoraEnvios.AlmacenMasCercano(connexionBaseDatos,11,2));
+
                     break;
 
                 case 2:
@@ -50,13 +56,37 @@ public class Main {
                     System.out.println("Dime el pedido que quieres asignar \n");
                     pedido = teclado.nextInt();
                     System.out.println("Este es el pedido que has elegido");
-                    gestoraEnvios.MostrarPedidoSinAsignar(pedido,sentencia);
+                    ResultSet res = gestoraEnvios.MostrarPedidoSinAsignar(pedido,sentencia);
                     System.out.println("");
                     System.out.println("Voy a asignarlo...Podre al almacen preferido?");
-                    //gestoraEnvios.comprobarAlmacenPreferido(sentencia,5,1);
+                    almacen = gestoraEnvios.comprobarAlmacenPreferido(connexionBaseDatos,pedido);
+                    if(almacen == 1){
 
-                    //gestoraEnvios.ComprobarAlmacen(sentencia,almacen,capacidad);
+                        almacen = gestoraEnvios.ObtenerAlmacenPreferido(connexionBaseDatos,pedido);
+                        gestoraEnvios.ActualizarAsignacion(connexionBaseDatos,pedido);
+                        gestoraEnvios.InsertPedidoAsignacion(connexionBaseDatos,pedido,almacen);
+                        System.out.println("Asignado al almacenPreferido");
 
+                    }else{
+
+                        System.out.println("Voy a asignarlo al mas cercano");
+                        almacen = gestoraEnvios.ObtenerAlmacenPreferido(connexionBaseDatos,pedido);
+                        almacenMasCercano = gestoraEnvios.AlmacenMasCercano(connexionBaseDatos,pedido,almacen);
+
+                        asignacion =  gestoraEnvios.ComprobarAlmCercano(connexionBaseDatos,pedido,almacenMasCercano);
+
+                       if(asignacion == 1){
+
+                           gestoraEnvios.ActualizarAsignacion(connexionBaseDatos,pedido);
+                           gestoraEnvios.InsertPedidoAsignacion(connexionBaseDatos,pedido,almacenMasCercano);
+                           System.out.println("Asignado Perfecto");
+
+                       }else{
+
+                           System.out.println("No se puede asignar tampoco al mas cercano");
+
+                       }
+                    }
                     break;
 
                 case 3:

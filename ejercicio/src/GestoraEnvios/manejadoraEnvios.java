@@ -3,9 +3,10 @@ package GestoraEnvios;
 import Clases.ConecBD;
 
 import javax.swing.plaf.nimbus.State;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class manejadoraEnvios {
 
@@ -81,14 +82,15 @@ public class manejadoraEnvios {
     * Entradas:Statement sentencia, id del pedido
     * Salidas: no hay
     * */
-    public void MostrarPedidoSinAsignar(int id,Statement sentencia){
+    public ResultSet MostrarPedidoSinAsignar(int id,Statement sentencia){
 
+        ResultSet res = null;
 
         try {
 
             //Utilizar como ejemplos.
             String miOrden = "SELECT * FROM BuscarEnvioSinAsignar(" + id + ")";
-            ResultSet res = sentencia.executeQuery(miOrden);
+             res = sentencia.executeQuery(miOrden);
 
 
             while (res.next()){
@@ -102,6 +104,8 @@ public class manejadoraEnvios {
             e.printStackTrace();
 
         }
+
+        return res;
 
     }
 
@@ -201,17 +205,141 @@ public class manejadoraEnvios {
     }
 
 
-    public int comprobarAlmacenPreferido(Statement sentencia,int id){
+    public int comprobarAlmacenPreferido(Connection conex,int id){
 
         int ret = 0;
-
+        CallableStatement senllamable;
         try {
 
             //Utilizar como ejemplos.
-            String miOrden = "exec ComprobarAlmacenPreferido " + id;
-            System.out.println(miOrden);
-            ret = sentencia.executeUpdate(miOrden);
-            System.out.println(ret);
+            String miOrden = "exec ComprobarAlmacenPreferido ? ,?";
+            senllamable = conex.prepareCall(miOrden);
+            senllamable.setInt(1,id);
+            senllamable.registerOutParameter(2, Types.INTEGER);
+            senllamable.executeUpdate();
+            ret = senllamable.getInt(2);
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+        return ret;
+
+
+        /*
+        *
+        * String sql = “Execute ObtenerGanador ?, ?”;
+            CallableStatement senllamable =
+            conexion.prepareCall (sql);
+            senllamable.setInt (1, 13);
+            senllamable.registerOutParameter
+            (2,java.sql.Types.VARCHAR);
+            senllamable.executeUpdate();
+            String valorDevuelto = senllamable.getString(2);
+        *
+        * */
+
+    }
+
+
+    public int comprobarSiEnvioAsignado(Connection conex,int id){
+
+        int ret = 0;
+        CallableStatement senllamable;
+        try {
+            //Utilizar como ejemplos.
+            String miOrden = "exec ComprobarSiAlmacenAsignado ? ,?";
+            senllamable = conex.prepareCall(miOrden);
+            senllamable.setInt(1,id);
+            senllamable.registerOutParameter(2, Types.INTEGER);
+            senllamable.executeUpdate();
+            ret = senllamable.getInt(2);
+        }catch (SQLException e){
+
+            e.printStackTrace();
+        }
+
+        return ret;
+
+
+    }
+
+    public int ActualizarAsignacion(Connection conex, int id){
+
+        java.util.Date d = new java.util.Date();
+        SimpleDateFormat plantilla = new SimpleDateFormat("dd/MM/yyyy H:mm");
+        String tiempo = plantilla.format(d);
+        java.sql.Date date2 = new java.sql.Date(d.getTime());
+
+
+        ResultSet res;
+
+        int ret = 0;
+
+        String sqlSelect = "Select ID,NumeroContenedores,FechaCreacion,FechaAsignacion,AlmacenPreferido from Envios where id =?";
+        PreparedStatement sent;
+
+        try{
+            //Buscamos el pedido que quiere asignar
+        sent = conex.prepareStatement(sqlSelect,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        sent.setInt(1,id);
+        res = sent.executeQuery();
+
+        //Actualizamos el resulter indicado
+        res.absolute(1);
+        res.updateDate("FechaAsignacion",date2);
+        res.updateRow();
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+        }
+
+        return ret;
+
+    }
+
+    public int AlmacenMasCercano(Connection conex,int idEnvio,int idAlmacenPrefe){
+
+        int ret = 0;
+        CallableStatement senllamable;
+        try {
+
+            //Utilizar como ejemplos.
+            String miOrden = "exec BuscarAlmacenMasCercano ? ,? ,?";
+            senllamable = conex.prepareCall(miOrden);
+            senllamable.setInt(1,idEnvio);
+            senllamable.setInt(2,idAlmacenPrefe);
+            senllamable.registerOutParameter(3, Types.INTEGER);
+            senllamable.executeUpdate();
+            ret = senllamable.getInt(3);
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+        return ret;
+
+
+    }
+
+    public int ObtenerAlmacenPreferido(Connection conex,int idEnvio){
+
+        int ret = 0;
+        CallableStatement senllamable;
+        try {
+
+            //Utilizar como ejemplos.
+            String miOrden = "exec ObtenerAlmacenPreferido ? ,?";
+            senllamable = conex.prepareCall(miOrden);
+            senllamable.setInt(1,idEnvio);
+            senllamable.registerOutParameter(2, Types.INTEGER);
+            senllamable.executeUpdate();
+            ret = senllamable.getInt(2);
 
         }catch (SQLException e){
 
@@ -222,6 +350,71 @@ public class manejadoraEnvios {
         return ret;
 
     }
+
+    public void InsertPedidoAsignacion(Connection conex,int idEnvio,int IdAlmacen){
+
+
+        PreparedStatement senIsertPrep;
+        String miOrden = "insert into Asignaciones(IDEnvio,IDAlmacen) Values(?,?)";
+
+        try {
+            senIsertPrep = conex.prepareStatement(miOrden);
+            senIsertPrep.setInt(1,idEnvio);
+            senIsertPrep.setInt(2,IdAlmacen);
+            senIsertPrep.executeUpdate();
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+
+
+
+
+    }
+
+
+    public int ComprobarAlmCercano(Connection conex,int id,int almacenCercano){
+
+        int ret = 0;
+        CallableStatement senllamable;
+        try {
+
+            //Utilizar como ejemplos.
+            String miOrden = "exec ComprobarAlmacenCercano ? ,? ,?";
+            senllamable = conex.prepareCall(miOrden);
+            senllamable.setInt(1,id);
+            senllamable.setInt(2,almacenCercano);
+            senllamable.registerOutParameter(3, Types.INTEGER);
+            senllamable.executeUpdate();
+            ret = senllamable.getInt(3);
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+        return ret;
+
+
+        /*
+        *
+        * String sql = “Execute ObtenerGanador ?, ?”;
+            CallableStatement senllamable =
+            conexion.prepareCall (sql);
+            senllamable.setInt (1, 13);
+            senllamable.registerOutParameter
+            (2,java.sql.Types.VARCHAR);
+            senllamable.executeUpdate();
+            String valorDevuelto = senllamable.getString(2);
+        *
+        * */
+
+    }
+
 
 }
 

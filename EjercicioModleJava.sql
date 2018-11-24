@@ -1,12 +1,4 @@
-﻿/*
-delete from Envios
-delete from Asignaciones
-delete from Distancias
-delete from Almacenes
-*/
-
-
-
+﻿
 /*
 Procedimientos y funciones ejercicio Almacenes
 */
@@ -146,22 +138,25 @@ GO
 
 
 GO
-create PROCEDURE ComprobarAlmacenPreferido (@idEnvio int)
+create PROCEDURE ComprobarAlmacenPreferido (@idEnvio int,@ret int Output)
 AS
 	
 declare @envioContenedores int
+declare @almacenPreferido int
+
+set @almacenPreferido = (select AlmacenPreferido from Envios where ID = @idEnvio)
 
 	set @envioContenedores = (select Envios.NumeroContenedores from Envios where ID = @idEnvio)
 
 	declare @capacidad int
-	declare @ret int
+	
 	
 	set @ret = 0
 
 	set @capacidad = (SELECT A.Capacidad - Sum(E.NumeroContenedores) AS disponible From Almacenes AS A 
 						Inner Join Asignaciones As Ag ON A.ID = Ag.IDAlmacen
 						Inner Join Envios AS E ON Ag.IDEnvio = E.ID
-						where A.ID = e.AlmacenPreferido and E.ID = @idEnvio
+						where A.ID = e.AlmacenPreferido and A.ID = @almacenPreferido
 						Group By A.ID, A.Capacidad)
 
 	if ((@capacidad - @envioContenedores ) >= 0)
@@ -174,15 +169,121 @@ declare @envioContenedores int
 
 GO
 
-DECLARE @return_status int  
-EXEC @return_status = ComprobarAlmacenPreferido 2; 
-print @return_status
+GO
+create PROCEDURE ComprobarSiAlmacenAsignado(@envio int,@ret int Output)
+AS
+	
+	declare @EnvioAsig int
+	set @EnvioAsig = (select IdEnvio from Asignaciones where IDEnvio = 1)
+
+	if(Len(@EnvioAsig) != 0)
+	begin
+		set @ret = 1
+	end
+
+	return @ret
+
+GO
+
+GO
+create PROCEDURE BuscarAlmacenMasCercano(@Idenvio int,@AlmacenPrefe int,@ret int Output)
+AS
+	
+	
+set @ret = 	(select idalmacen2 from Distancias where Distancia in
+				(select Min(Distancia) as distancia from Envios as E
+					inner join Distancias as D
+					on E.AlmacenPreferido = D.IDAlmacen1
+					where E.AlmacenPreferido = @AlmacenPrefe and E.id = @Idenvio))
+	
+
+	return @ret
+
+GO
+
+GO
+create PROCEDURE ObtenerAlmacenPreferido(@Idenvio int,@ret int Output)
+AS
+	
+	
+	set @ret = (select AlmacenPreferido from Envios where id = @Idenvio)
+	
+
+	return @ret
+
+GO
+
+
+GO
+create PROCEDURE ComprobarAlmacenCercano (@idEnvio int,@AlmacenCercano int,@ret int Output)
+AS
+	
+declare @envioContenedores int
+
+
+	
+
+	set @envioContenedores = (select Envios.NumeroContenedores from Envios where ID = @idEnvio)
+
+	declare @capacidad int
+	
+	
+	set @ret = 0
+
+	set @capacidad = (SELECT A.Capacidad - Sum(E.NumeroContenedores) AS disponible From Almacenes AS A 
+						Inner Join Asignaciones As Ag ON A.ID = Ag.IDAlmacen
+						Inner Join Envios AS E ON Ag.IDEnvio = E.ID
+						where A.ID = e.AlmacenPreferido and A.ID = @AlmacenCercano
+						Group By A.ID, A.Capacidad)
+
+	if ((@capacidad - @envioContenedores ) >= 0)
+		set @ret = 1
+	else
+		set @ret = 0
+
+	return @ret
+
+
+GO
+
+
+			
+
+
+--Para comprobar funcionamiento de procedure
+
+
 
 /*
 INSERTS DE DATOS
 */
 
+select * from Envios
+select * from Asignaciones
+select * from Almacenes
+
+
+update Envios set FechaAsignacion = null where ID = 11
+
+
+select * from Distancias
+Select * from Envios
 GO
+update Almacenes 
+		set Capacidad = 0 where id = 2
+
+
+
+
+			
+			
+			
+			
+			
+			
+
+			
+
 INSERT INTO Almacenes (ID,Denominacion,Direccion,Capacidad)
      VALUES (1,'Nave de Manuela','C/Hierro, 27 Sevilla',400)
 	 ,(2,'PaquePluf','C/Econom�a, 30 Sevilla',250)
