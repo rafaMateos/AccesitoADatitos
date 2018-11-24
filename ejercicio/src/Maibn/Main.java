@@ -3,20 +3,23 @@ import Clases.ConecBD;
 import GestoraEnvios.manejadoraEnvios;
 import GestoraMenus.Menus;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         //Declaracion de variables y objetos
         int opcion;
-        int pedido;
+        int pedido = 0;
         int almacen;
         int almacenMasCercano;
         int capacidad;
         int asignar;
         int asignacion;
+        ArrayList<Integer> ids;
         Scanner teclado = new Scanner(System.in);
         Menus menus = new Menus();
         manejadoraEnvios gestoraEnvios = new manejadoraEnvios();
@@ -53,13 +56,24 @@ public class Main {
                     //System.out.println("En construccion");
                     System.out.println("Envios sin asignar \n");
                     gestoraEnvios.MostrarPedididosSinAsignar(sentencia);
-                    System.out.println("Dime el pedido que quieres asignar \n");
-                    pedido = teclado.nextInt();
+                    ids = gestoraEnvios.ArrayIdsEnvios(connexionBaseDatos);
+
+                    do{
+
+                        System.out.println("Dime el pedido que quieres asignar \n");
+                        pedido = teclado.nextInt();
+
+                    }while(!gestoraEnvios.ValidarEnvio(ids,pedido));
+
+
+
                     System.out.println("Este es el pedido que has elegido");
                     ResultSet res = gestoraEnvios.MostrarPedidoSinAsignar(pedido,sentencia);
                     System.out.println("");
                     System.out.println("Voy a asignarlo...Podre al almacen preferido?");
                     almacen = gestoraEnvios.comprobarAlmacenPreferido(connexionBaseDatos,pedido);
+
+                    Thread.sleep(5000);
                     if(almacen == 1){
 
                         almacen = gestoraEnvios.ObtenerAlmacenPreferido(connexionBaseDatos,pedido);
@@ -69,12 +83,14 @@ public class Main {
 
                     }else{
 
+                        System.out.println("No he podido asignarlos al almacen preferido");
                         System.out.println("Voy a asignarlo al mas cercano");
                         almacen = gestoraEnvios.ObtenerAlmacenPreferido(connexionBaseDatos,pedido);
                         almacenMasCercano = gestoraEnvios.AlmacenMasCercano(connexionBaseDatos,pedido,almacen);
 
                         asignacion =  gestoraEnvios.ComprobarAlmCercano(connexionBaseDatos,pedido,almacenMasCercano);
 
+                        Thread.sleep(5000);
                        if(asignacion == 1){
 
                            gestoraEnvios.ActualizarAsignacion(connexionBaseDatos,pedido);

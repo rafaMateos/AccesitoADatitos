@@ -6,7 +6,10 @@ import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class manejadoraEnvios {
 
@@ -415,6 +418,47 @@ public class manejadoraEnvios {
 
     }
 
+
+    public ArrayList<Integer> ArrayIdsEnvios(Connection conex){
+
+        ArrayList<Integer> ret = new ArrayList<>();
+        Statement sentencia;
+
+        try {
+            sentencia = conex.createStatement();
+
+            String miOrden = "select Id from envios where FechaAsignacion is null ";
+
+            ResultSet res = sentencia.executeQuery(miOrden);
+
+            while (res.next()){
+
+                ret.add(res.getInt(1));
+
+            }
+
+
+
+        }catch (SQLException e){
+
+            e.printStackTrace();
+
+        }
+
+        return ret;
+
+    }
+
+    public boolean ValidarEnvio(ArrayList<Integer> Ids,int envio){
+
+        boolean ret = false;
+
+       List<Integer> Array = Ids;
+       if(Ids.contains(envio)){ ret = true; }
+
+        return ret;
+
+    }
 
 }
 

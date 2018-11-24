@@ -82,6 +82,7 @@ RETURN
 GO
 
 
+
 /*
 Nombre: MostrarAlmacenesConCapacidadLibre
 Descripcion: Funcion la cual nos mostrara la capacidad libre de cada almacen
@@ -247,8 +248,43 @@ declare @envioContenedores int
 GO
 
 
-			
+GO
+create TRIGGER ComprobarAsignacion ON Envios AFTER INSERT
+AS
+	BEGIN
+		BEGIN TRANSACTION
+		declare @fechaAsignacion DateTime;
+		set @fechaAsignacion = (Select FechaAsignacion from inserted)
+			BEGIN TRANSACTION
+			if(@fechaAsignacion is null)
+			begin
+				RAISERROR(N'No puedes intoducir el almacen preferido a null',18,1)
+				rollback
+			end
+			commit
 
+		COMMIT
+	END 
+GO	
+
+
+create TRIGGER ValidarEspacio ON Envios AFTER INSERT
+AS
+	BEGIN
+		BEGIN TRANSACTION
+		
+		
+			
+			commit
+
+		COMMIT
+	END 
+
+
+select * from envios
+
+insert into Envios(ID,NumeroContenedores,FechaCreacion,FechaAsignacion,AlmacenPreferido) 
+		values(67,4,GETDATE(),null,1)
 
 --Para comprobar funcionamiento de procedure
 
@@ -279,10 +315,14 @@ update Almacenes
 			
 			
 			
-			
-			
+		
+		drop database AlmacenesLeo	
 
 			
+delete from Envios
+delete from Almacenes
+delete from Distancias
+delete from Asignaciones
 
 INSERT INTO Almacenes (ID,Denominacion,Direccion,Capacidad)
      VALUES (1,'Nave de Manuela','C/Hierro, 27 Sevilla',400)
@@ -347,8 +387,6 @@ INSERT INTO Envios (ID,NumeroContenedores,FechaCreacion,FechaAsignacion,AlmacenP
 		,(38,204,'20180921','20181106',30)
 		,(39,74,'20180602',NULL,20)
 GO
-
-
 
 INSERT INTO Asignaciones (IDEnvio,IDAlmacen)
      VALUES (0,1),(1,1),(2,1),(3,1),(4,10),(16,2),(17,2)
