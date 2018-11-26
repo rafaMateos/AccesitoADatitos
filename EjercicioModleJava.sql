@@ -139,9 +139,8 @@ GO
 
 
 GO
-create PROCEDURE ComprobarAlmacenPreferido (@idEnvio int,@ret int Output)
+alter PROCEDURE ComprobarAlmacenPreferido (@idEnvio int,@ret int Output)
 AS
-	
 declare @envioContenedores int
 declare @almacenPreferido int
 
@@ -213,7 +212,6 @@ AS
 	return @ret
 
 GO
-
 
 GO
 create PROCEDURE ComprobarAlmacenCercano (@idEnvio int,@AlmacenCercano int,@ret int Output)
@@ -401,3 +399,5 @@ SELECT A.ID, A.Capacidad, Sum(E.NumeroContenedores) AS Ocupado, A.Capacidad - Su
 	Group By A.ID, A.Capacidad
 
 	select * from Envios
+
+	

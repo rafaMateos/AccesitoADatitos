@@ -37,6 +37,7 @@ public class Main {
              sentencia = connexionBaseDatos.createStatement();
 
         }catch (Exception e){
+
             e.printStackTrace();
 
         }
@@ -76,7 +77,8 @@ public class Main {
                     Thread.sleep(5000);//Paramos la ejecucion para asi poder bien paso a paso lo que hace
                     //Si el almacen preferido tiene espacio
                     if(almacen == 1){
-                            //Asignamos al almacen preferido
+
+                        //Asignamos al almacen preferido
                         almacen = gestoraEnvios.ObtenerAlmacenPreferido(connexionBaseDatos,pedido);
                         gestoraEnvios.ActualizarAsignacion(connexionBaseDatos,pedido);
                         gestoraEnvios.InsertPedidoAsignacion(connexionBaseDatos,pedido,almacen);

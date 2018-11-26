@@ -269,8 +269,13 @@ public class manejadoraEnvios {
 
     }
 
-    public int ActualizarAsignacion(Connection conex, int id){
+    /*
+    * Nombre: ActualizarAsignacion
+     * Entradas: Conex,int id
+     * Salidas: no hay*/
+    public void ActualizarAsignacion(Connection conex, int id){
 
+        //Fecha flama flecha soy dios queredme.
         java.util.Date d = new java.util.Date();
         SimpleDateFormat plantilla = new SimpleDateFormat("dd/MM/yyyy H:mm");
         String tiempo = plantilla.format(d);
@@ -278,14 +283,11 @@ public class manejadoraEnvios {
 
 
         ResultSet res;
-
-        int ret = 0;
-
         String sqlSelect = "Select ID,NumeroContenedores,FechaCreacion,FechaAsignacion,AlmacenPreferido from Envios where id =?";
         PreparedStatement sent;
 
         try{
-            //Buscamos el pedido que quiere asignar
+         //Buscamos el pedido que quiere asignar
         sent = conex.prepareStatement(sqlSelect,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
         sent.setInt(1,id);
         res = sent.executeQuery();
@@ -300,7 +302,7 @@ public class manejadoraEnvios {
             e.printStackTrace();
         }
 
-        return ret;
+
 
     }
 
@@ -361,6 +363,7 @@ public class manejadoraEnvios {
         String miOrden = "insert into Asignaciones(IDEnvio,IDAlmacen) Values(?,?)";
 
         try {
+
             senIsertPrep = conex.prepareStatement(miOrden);
             senIsertPrep.setInt(1,idEnvio);
             senIsertPrep.setInt(2,IdAlmacen);
