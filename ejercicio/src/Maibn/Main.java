@@ -30,7 +30,6 @@ public class Main {
         Connection connexionBaseDatos = metodos.iniciarConex("AlmacenesLeo");
         Statement sentencia = null;
 
-
         //Si les pasas la conexcionesto te lo ahorras nene y ya despues pues crear el statement que te haga falta
         try{
 

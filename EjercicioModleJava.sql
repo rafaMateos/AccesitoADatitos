@@ -1,8 +1,7 @@
-﻿
-/*
+﻿/*
 Procedimientos y funciones ejercicio Almacenes
 */
-
+Select IDEnvio,IDAlmacen from Asignaciones
 /*
 	NOMBRE:func_Mostrar_Pedidos_Sin_Asignar
 	DESCRIPCION:FUNCION LA CUAL NOS DEVOLVERA TODOS LOS PEDIDOS SIN ASIGNAR.

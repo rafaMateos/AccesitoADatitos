@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<musica>
+<album> 
+    <autor>Joaquín Sabina</autor>
+	<titulo>SABINA Y CIA Nos sobran los motivos</titulo> 	
+    <formato>MP3</formato> 
+	<localizacion>Varios CD5 </localizacion>
+</album>
+<album> 
+    <autor>Adele</autor> 
+	<titulo>21</titulo> 	
+    <formato>MP3</formato> 
+	<localizacion>Ordenador 3</localizacion>
+</album>
+<album> 
+    <autor>Amy Winehouse</autor> 
+	<titulo>Back in black</titulo> 	
+    <formato>AC3</formato> 
+	<localizacion>British collection</localizacion>
+</album>
+<album> 
+    <autor>Lou Reed</autor> 
+	<titulo>Greatest hits</titulo> 	
+    <formato>MP3</formato> 
+	<localizacion>Ordenador 3</localizacion>
+</album>
+<album> 
+    <autor>El Barrio</autor> 
+	<titulo>La voz de mi silencio</titulo> 	
+    <formato>MP3</formato> 
+	<localizacion>CD mercadillo</localizacion>
+</album>
+</musica>
