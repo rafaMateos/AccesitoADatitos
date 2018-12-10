@@ -7,11 +7,8 @@ import java.time.LocalDate;
 
 public class GestoraDiscos
 {
-    /*
-     ***********************************************************************************
-     ********************************* C O N E X I O N *********************************
-     ***********************************************************************************
-     */
+
+
     private Connection conexion;
     private ResultSet rsDiscos;
     public GestoraDiscos() throws SQLException {
@@ -37,7 +34,7 @@ public class GestoraDiscos
      ********************************** F U N C I O N E S ******************************
      ***********************************************************************************
      */
-    //EXAMEN: Ejemplo de Insert con ResultSet
+
     public boolean agregarDisco(Disco disco) throws SQLException
     {
         boolean creado = false;
