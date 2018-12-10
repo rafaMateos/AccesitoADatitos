@@ -2,7 +2,6 @@ package GestoraEnvios;
 
 import Clases.ConecBD;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
