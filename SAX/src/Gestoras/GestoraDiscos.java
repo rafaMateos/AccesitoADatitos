@@ -35,10 +35,8 @@ public class GestoraDiscos
      ***********************************************************************************
      */
 
-    public boolean agregarDisco(Disco disco) throws SQLException
+    public void agregarDisco(Disco disco) throws SQLException
     {
-        boolean creado = false;
-        int tamanoPrevio = obtenerTamanoTablaDiscos();
 
         rsDiscos.moveToInsertRow();
         rsDiscos.updateString("autor", disco.getAutor());
@@ -48,10 +46,7 @@ public class GestoraDiscos
         rsDiscos.insertRow();
         rsDiscos.moveToCurrentRow();
 
-        if(obtenerTamanoTablaDiscos() == tamanoPrevio+1)
-            creado = true;
 
-        return creado;
     }
 
     private int obtenerTamanoTablaDiscos() throws SQLException
