@@ -5,10 +5,18 @@
  */
 package probandohibernateconle;
 
+
+import java.util.Scanner;
+import manejadoras.ManejadoraMenus;
 import modelos.Criaturita;
 import org.hibernate.Session;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import modelos.CriaturitaConRegalos;
+import modelos.RegaloParaCriaturitaConRegalos;
 import probandohibernate.SesionFactory;
 
 /**
@@ -16,6 +24,21 @@ import probandohibernate.SesionFactory;
  * @author rmateos
  */
 public class ProbandoHibernateConLe {
+    
+  private static void recuperaCriaturitaConRegalos(Session s, byte id){
+ 
+        CriaturitaConRegalos nene;
+     
+        nene = (CriaturitaConRegalos)s.get(CriaturitaConRegalos.class, id);
+        System.out.println();
+        System.out.println(nene.toString());
+        System.out.println("Regalos");
+        int cont = 1;
+        for(RegaloParaCriaturitaConRegalos surprise:nene.getRegalitos()){
+            System.out.println(cont+" -> "+surprise.toString());
+            cont++;
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -24,41 +47,42 @@ public class ProbandoHibernateConLe {
     
     public static void main(String[] args) {
         
-        Session session = null;
-        sessionFactory = SesionFactory.getSessionFactory();
-        session = sessionFactory.openSession();
+        int opcion;
+        ManejadoraMenus manejadora = new ManejadoraMenus();
+        Scanner teclado  = new Scanner(System.in);
+        
+        do{
+         manejadora.MostrarMenu();
+         opcion = teclado.nextInt();
+        }while(opcion < 0 || opcion > 10);
+        
+        switch(opcion){
+        
+            case 1:
+                
+                break;
+                
+            
+        }
        
-        Transaction tx = session.beginTransaction();
-        Criaturita criatura = new Criaturita();
-        
-        byte id = 71;
-        byte id2 = 2;
-        
-        System.out.println("Guardamos a Juan con id "+ id);
-        criatura.setId(id);
-        criatura.setNombre("Juan");
-        session.save(criatura);
-        
-         System.out.println("Recojemos un registro(Adelita)");
-        Criaturita nene = (Criaturita)session.get(Criaturita.class, id2);
-        System.out.println(nene.getNombre());
-        
-        System.out.println("Le cambiamos el nombre a Adelita(LeoApruebame)");
-        nene.setNombre("LeoApruebame");
-        
-        System.out.println("Borramos a Juan con id 70");
-        id2 = 70;
-        Criaturita juan = (Criaturita)session.get(Criaturita.class, id2);
-        session.delete(juan);
-        
-        tx.commit();
-        session.close();
-        
-        
-        
-       
-        
-        
+                
+        /*
+        SessionFactory instancia = SesionFactory.getSessionFactory();
+        try{
+            
+            byte idC = 3;
+            Session ses = instancia.openSession();
+            
+             int idR = 6;
+             idC = 3;
+            System.out.println("======================================================");
+    
+            recuperaCriaturitaConRegalos (ses,idC);
+            ses.close();
+            
+        }catch(Exception e){};
+        */
+
         
     }
     
