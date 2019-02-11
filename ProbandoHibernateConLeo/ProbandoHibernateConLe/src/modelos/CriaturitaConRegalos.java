@@ -20,7 +20,6 @@ import javax.persistence.Table;
 public class CriaturitaConRegalos  implements java.io.Serializable {
 
     @Id 
-
     @Column(name="Id", nullable=false)	
      private byte id;
      

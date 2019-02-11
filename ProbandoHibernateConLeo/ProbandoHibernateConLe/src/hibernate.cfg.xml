@@ -6,6 +6,7 @@
     <property name="hibernate.connection.url">jdbc:sqlserver://107-06:1433;databaseName=Ejemplos</property>
     <property name="hibernate.connection.username">pepejuan</property>
     <property name="hibernate.connection.password">hola</property>
+    <mapping class="modelos.Criaturita"/>
     <mapping class="modelos.CriaturitaConRegalos"/>
     <mapping class="modelos.RegaloParaCriaturitaConRegalos"/>
   </session-factory>

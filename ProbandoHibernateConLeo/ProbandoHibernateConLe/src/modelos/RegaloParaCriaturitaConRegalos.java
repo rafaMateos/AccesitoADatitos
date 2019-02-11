@@ -22,7 +22,6 @@ import javax.persistence.Table;
 )
 public class RegaloParaCriaturitaConRegalos implements Serializable {
     @Id 
-
     @Column(name="Id", nullable=false)	    
     private int id;
     
