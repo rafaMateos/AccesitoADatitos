@@ -12,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import probandohibernate.SesionFactory;
 
 
 @Entity
@@ -71,6 +75,18 @@ public class CriaturitaConRegalos  implements java.io.Serializable {
         return "Criaturita{" + "id=" + id + ", nombre=" + nombre + '}';
     }
 
+    public boolean EliminarRegalo(RegaloParaCriaturitaConRegalos regalo){
+        
+        boolean ret = false;
+       
+        ret = this.regalitos.remove(regalo);
+            
+        return ret;
+        
+    }
+    
+    
+    
 }
 
 

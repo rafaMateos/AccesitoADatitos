@@ -16,10 +16,9 @@ public class ManejadoraMenus {
         System.out.println("4-Quitar un regalo a una criaturita");
         System.out.println("5-Asignar un regalo a una criaturita(o ninguna)");
         System.out.println("6-Crear una nueva criaturita");
-        System.out.println("7-Crear una nueva criaturita");
-        System.out.println("8-Crear un nuevo regalo");
-        System.out.println("9-Borrar un regalo");
-        System.out.println("10-Borrar un regalo y todos sus regalos");
+        System.out.println("7-Crear un nuevo regalo");
+        System.out.println("8-Borrar un regalo");
+        System.out.println("9-Borrar un regalo y todos sus regalos");
         System.out.println("0-Salir");
          System.out.println("------------------------------");
     }

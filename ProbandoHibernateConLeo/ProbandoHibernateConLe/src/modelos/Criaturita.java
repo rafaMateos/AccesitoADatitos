@@ -4,6 +4,7 @@ package modelos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,10 +15,12 @@ import javax.persistence.Table;
 @Table(name="Criaturitas"
     ,schema="dbo"
     ,catalog="Ejemplos"
+        
 )
 public class Criaturita  implements java.io.Serializable {
 
-    @Id 
+    
+    @Id
     @Column(name="ID", unique=true, nullable=false)
      private byte id;
     

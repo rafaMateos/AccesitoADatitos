@@ -9,8 +9,13 @@ package probandohibernateconle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import manejadoras.ManejadoraMenus;
+import manejadoras.ManejadoraProgram;
 import modelos.Criaturita;
 import org.hibernate.Session;
 
@@ -37,10 +42,11 @@ public class ProbandoHibernateConLe {
         System.out.println();
         System.out.println(nene.toString());
         System.out.println("Regalos");
-        int cont = 1;
+       
+        
         for(RegaloParaCriaturitaConRegalos surprise:nene.getRegalitos()){
-            System.out.println(cont+" -> "+surprise.toString());
-            cont++;
+            System.out.println(surprise.getId()+" -> "+surprise.toString());
+            
         }
     }
 
@@ -52,6 +58,7 @@ public class ProbandoHibernateConLe {
     public static void main(String[] args) {
         
         int opcion;
+        ManejadoraProgram maneja = new ManejadoraProgram();
         ManejadoraMenus manejadora = new ManejadoraMenus();
         Scanner teclado  = new Scanner(System.in);
         
@@ -112,30 +119,106 @@ public class ProbandoHibernateConLe {
                 break;
                         
                         
+            case 4:
                 
+                Query query3 = ses.createQuery("FROM modelos.Criaturita");
+                 List<Criaturita> criaturita3 = query3.list();
+                
+                for(int i = 0; i < criaturita3.size(); i++){
+                    System.out.println("id: " + criaturita3.get(i).getId() +
+                            " Nombre: " + criaturita3.get(i).getNombre()); 
+                } 
+                
+                System.out.println("Ecoja una criaturita");
+                byte idCriaturita1 = teclado.nextByte();
+                CriaturitaConRegalos criaturitaParaEliminar = (CriaturitaConRegalos)ses.get(CriaturitaConRegalos.class, idCriaturita1);
             
+                recuperaCriaturitaConRegalos(ses,idCriaturita1);
+                int idRegalo = teclado.nextInt();
+                
+                RegaloParaCriaturitaConRegalos nene;
+                Transaction tr = ses.beginTransaction();
+                nene = (RegaloParaCriaturitaConRegalos)ses.get(RegaloParaCriaturitaConRegalos.class, idRegalo);
+              
+                
+               boolean result = criaturitaParaEliminar.EliminarRegalo(nene);
+               nene.setPropietario(null);
+                 
+                 
+
+               tr.commit();
+
+                
+                if(result){
+                    System.out.println("Borrado perfe");
+                }else{
+                    System.out.println("Borrado no posible nene");
+                }
+                break;
+                
+                
+            case 5:
+                
+                Query query4 = ses.createQuery("FROM modelos.Criaturita");
+                 List<Criaturita> criaturita4 = query4.list();
+                
+                for(int i = 0; i < criaturita4.size(); i++){
+                    System.out.println("id: " + criaturita4.get(i).getId() +
+                            " Nombre: " + criaturita4.get(i).getNombre()); 
+                } 
+                
+                System.out.println("Ecoja una criaturita para asignarle el regalo");
+                byte idCriaturita2 = teclado.nextByte();
+                
+                CriaturitaConRegalos criaturitaParaRegalar = (CriaturitaConRegalos)ses.get(CriaturitaConRegalos.class, idCriaturita2);
+                
+                
+                Query query5 = ses.createQuery("from modelos.RegaloParaCriaturitaConRegalos as reg where reg.propietario is null");
+                  List<RegaloParaCriaturitaConRegalos> criaturita5 = query5.list();
+                  
+                   for(int i = 0;  i< criaturita5.size(); i++){
+                   
+                       System.out.println("id: " + criaturita5.get(i).getId() +" Nombre: " +   criaturita5.get(i).getDenominacion());
+                   }
+                   
+                System.out.println("Ecoja el regalo que quiere");
+                int idRegalo2 = teclado.nextInt();
+                
+                Transaction tr1 = ses.beginTransaction();
+                
+                nene = (RegaloParaCriaturitaConRegalos)ses.get(RegaloParaCriaturitaConRegalos.class, idRegalo2);
+                  
+                 nene.setPropietario(criaturitaParaRegalar);
+                
+                   tr1.commit();
+                break;
+                
+                
+            case 6:
+                
+                maneja.CrearCriaturita(ses);//Cambiar id por autogenerado
+                
+                break;
+                
+                
+            case 7:
+                
+                maneja.CrearRegalo(ses);//Cambiar id por autogenerado
+                break;
+                
+                
+            case 8:
+                
+                maneja.BorrarRegalo(ses);
+                
+                break;
+                 
         }
        
          
          }while(opcion != 0);
         
-                
-        /*
-        SessionFactory instancia = SesionFactory.getSessionFactory();
-        try{
-            
-            byte idC = 3;
-            Session ses = instancia.openSession();
-            
-             int idR = 6;
-             idC = 3;
-            System.out.println("======================================================");
-    
-            recuperaCriaturitaConRegalos(ses,idC);
-            ses.close();
-            
-        }catch(Exception e){};
-        */
+        ses.close();
 
         
     }

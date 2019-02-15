@@ -5,6 +5,7 @@ package modelos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -46,7 +47,7 @@ public class RegaloParaCriaturitaConRegalos implements Serializable {
     @Column(name="Precio")
     private BigDecimal precio;
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "GoesTo",
             foreignKey = @ForeignKey(name = "FK_RegalosCriaturitas")
     )
@@ -126,6 +127,9 @@ public class RegaloParaCriaturitaConRegalos implements Serializable {
     public void setPropietario(CriaturitaConRegalos propietario) {
         this.propietario = propietario;
     }
+    
+    
+    
     @Override
     public String toString(){
         return "Regalo: Denominacion: "+denominacion+"\nAncho: "+ancho+"\nLargo: "+alto+"\nTipo: "+tipo+"\nEdad mínima: "+edadMinima+"\nPrecio: "+precio;
